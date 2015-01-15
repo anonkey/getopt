@@ -6,7 +6,7 @@
 /*   By: tseguier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/12 22:56:54 by tseguier          #+#    #+#             */
-/*   Updated: 2015/01/15 17:20:44 by tseguier         ###   ########.fr       */
+/*   Updated: 2015/01/15 18:37:43 by tseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ static int	getopt_refresh(t_getopt getopt)
 			|| getopt->ind + 1 >= getopt->argc)
 			return ((getopt->err = opterror(getopt, MISSING_PARAM)));
 		getopt->arg = getopt->argv[++getopt->ind];
+		getopt->pos = 0;
+		++getopt->ind;
 	}
 	getopt->opt = *opt;
 	return (0);
@@ -50,7 +52,11 @@ int			ft_getopt(t_getopt getopt)
 		return (-1);
 	while (getopt->ind < getopt->argc && getopt->argv[getopt->ind]
 			&& *(getopt->argv[getopt->ind]) != OPT_CHAR)
+	{
+		if (getopt->genlist)
+			ft_ldcdpush_back(getopt->arglist, getopt->argv[getopt->ind], 0);
 		++getopt->ind;
+	}
 	if (getopt->ind == getopt->argc || !getopt->argv[getopt->ind]
 		|| getopt->argv[getopt->ind][1] == OPT_CHAR)
 		return ((getopt->ind = -1));

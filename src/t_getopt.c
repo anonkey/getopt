@@ -6,7 +6,7 @@
 /*   By: tseguier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/13 00:13:18 by tseguier          #+#    #+#             */
-/*   Updated: 2015/01/15 17:19:59 by tseguier         ###   ########.fr       */
+/*   Updated: 2015/01/15 18:18:53 by tseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 
 void		ft_getoptclr(t_getopt getopt)
 {
-	ft_strtabdel(&(getopt->argv), 1);
+	if (getopt->genlist)
+		ft_ldcddel(&(getopt->arglist), NULL);
 	return ;
 }
 
@@ -33,7 +34,7 @@ int			ft_getoptinit(t_getopt getopt, t_getopt_params params)
 	if (!getopt || !params || !params->opstring || !params->argv)
 		return (errno = EINVAL);
 	ft_memcpy(getopt, params, sizeof(t_sgetopt_params));
-	if (!(getopt->argv = ft_strtabcpy(getopt->argv, 0)))
+	if ((params->genlist) && !(getopt->arglist = ft_ldcdnew()))
 		return (errno);
 	getopt->ind = 1;
 	return (0);

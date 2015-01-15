@@ -6,7 +6,7 @@
 /*   By: tseguier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/15 17:00:32 by tseguier          #+#    #+#             */
-/*   Updated: 2015/01/15 17:16:43 by tseguier         ###   ########.fr       */
+/*   Updated: 2015/01/15 18:39:16 by tseguier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,11 @@
 
 void	ft_tracegetopt(t_getopt getopt)
 {
-		ft_dprintf(2, "Getopt: Ind: %d opt:%c param:%s act: %s err: %c\n",
-					getopt->ind, getopt->opt, getopt->arg,
-					getopt->argv[getopt->ind], getopt->err);
+	if (getopt->ind < 1)
+		ft_putendl_fd("Erroneous or ended getopt", 2);
+	else
+		ft_dprintf(2, "Getopt: Ind: %d pos: %d argc: %d opt:%c param:%s \
+act: %s err: %c genlist:%d\n",
+					getopt->ind, getopt->pos, getopt->argc, getopt->opt, getopt->arg,
+					getopt->argv[getopt->ind], getopt->err, getopt->genlist);
 }
